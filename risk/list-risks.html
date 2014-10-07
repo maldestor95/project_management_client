@@ -1,0 +1,42 @@
+<html>            
+            <form> 
+                desc<input ng-model="search.description"></input>
+                impact<input ng-model="search.impact"></input>
+                origine<input ng-model="search.origine"></input>
+                {{sort}}:{{reverse}}
+            </form>
+            <table class="table table-striped">
+                <tr>
+                    <td>description</td>
+                    <td>type </td>
+                    <td ng-click="sort='origine';reverse!=risk.reverse">origine</td>  
+                    <td>risk_opp</td>
+                    <td>date_created</td>
+                    <td ng-click="sort='gravity';reverse!=reverse">gravity</td>
+                    <td ng-click="sort='probability';reverse!=reverse">probability</td>
+                    <td>Criticity</td>
+                    <td>history.date</td>
+                    <td>impact</td>
+                    <td>impact_desc</td>
+                    <td>Status_open</td>
+                    <td>preventive_action</td>
+                    <td>Leader</td>
+                </tr>
+                <tr ng-repeat="risk in riskCtrl.risks |orderBy:risk.sort:reverse">
+                    <td>{{risk.description}}</td>
+                    <td>{{risk.type }}</td>
+                    <td>{{risk.origine}}</td>  
+                    <td>{{risk.risk_opp}}</td>
+                    <td>{{risk.date_created | date : 'dd/MMM/yy'}}</td>
+                    <td>{{risk.history[0].gravity}}</td>
+                    <td>{{risk.history[0].probability}}</td>
+                    <td>{{risk.history[0].probability * risk.history[0].gravity}}</td>
+                    <td>{{risk.history.date}}</td>
+                    <td>{{risk.impact}}</td>
+                    <td>{{risk.impact_desc}}</td>
+                    <td>{{risk.Status_open}}</td>
+                    <td>{{risk.preventive_action}}</td>
+                    <td>{{risk.Leader}}</td>
+                </tr>
+            </table>
+</html>

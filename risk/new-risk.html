@@ -1,0 +1,49 @@
+<html>
+    <form name="new_risk" ng-submit="riskCtrl.new_risk()">
+        <p>
+            <div class="col-lg-8">description:
+                <input type="text" ng-model="risk.desc" title="Entrez la description du risque ou de l_opportunité">
+                </input>
+            </div>
+            <div class="col-lg-2">type:
+                <select  ng-model="risk.type" ng-options="opt for opt in ['Management','Technique']">
+                </select>
+            </div>
+            <div class="col-lg-2">origine:
+                <select  ng-model="risk.orig" ng-init="risk.orig='interne'" ng-options="opt for opt in ['Interne','Externe']" title="l'origine est Interne ou Externe au projet.">
+                </select>
+            </div>
+        </p>
+
+        <p>
+            <div class="col-lg-6">risk_opp:
+                <select  ng-model="risk.risk_opp" ng-init="risk.risk_opp='risque'" ng-options="opt for opt in ['Risque','Opportunité']">
+                </select>
+            </div>
+            <div class="col-lg-1">gravity:
+                <select type="text" ng-model="risk.gravity" ng-options="opt for opt in ['1','2','3']" ng-init="risk.gravity='1'" title="1:Entraine des incidences mineures, légères, de peu d'importance, sans aucune incidence au niveau du client&#13;2 entraine des incidences graves, significatifs qui pourront avoir pour conséquences le non respect d'un aspect contractuel mineur&#13;3 entraine des dommages bloquants, catastrophiques, intolérables qui auront pour conséquence le non respect d'un aspect contractuel majeur"> 
+                </select> 
+            </div>
+            <div class="col-lg-1">probability:
+                <select type="text" ng-model="risk.probability" ng-options="opt for opt in ['1','2','3']" ng-init="risk.probability='1'" title="1:Peu probable&#13;2:Très probable&#13;3:Certain"> 
+                </select>
+            </div>
+            <div class="col-lg-1">
+                <p>Criticity:</p>
+                <p>
+                    {{risk.gravity*risk.probability}}
+                </p>
+            </div>
+       
+            <div class="col-lg-1">impact:<select type="text" ng-model="risk.impact" ng-options="opt for opt in ['Coût','Délai','Qualité']" ></select>
+            </div>
+            <div class="col-lg-1">impact_desc:<input type="text" ng-model="risk.impact_desc" required title="Description de l'impact"></div>
+        </p>
+        <p>
+            <div class="col-lg-6">preventive_action:<input type="text" ng-model="risk.preventive_action" title="action de prevention ou de diminution du risque"></input></div>
+            <div class="col-lg-2">Leader:<input type="text" ng-model="risk.leader"/></div>
+            <div class="col-lg-2"><input type="submit" id="submit" value="Submit" /></div>
+        </p>
+
+    </form>
+</html>
