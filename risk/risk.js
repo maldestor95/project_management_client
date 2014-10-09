@@ -1,7 +1,7 @@
 angular.module('risk',[])
-	.controller('riskController',function($scope){
+	.controller('riskController',['$scope','$http',function($scope,$http){
 		this.risks =risksList;
-        $scope.sort="gravity";
+        $scope.predicate='gravity';
         $scope.reverse=true;
         this.alert=function(msg){
             console.log(msg);
@@ -26,8 +26,19 @@ angular.module('risk',[])
         		Leader:$scope.risk.leader
     		}
        		this.risks.push(new_risk);
+              $http({method: 'GET', url: '/someUrl',params:new_risk}).
+              success(function(data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                alert(data);
+              }).
+              error(function(data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert(status);
+            });
         };
-    })
+    }])
     .directive('newRisk',function(){
     	return {
     		restrict: 'E',

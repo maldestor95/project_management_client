@@ -1,23 +1,23 @@
 <html>
-    <form name="new_risk" ng-submit="riskCtrl.new_risk()">
+    <form id="new_risk" name="new_risk" ng-submit="riskCtrl.new_risk()">
         <p>
             <div class="col-lg-8">description:
-                <input type="text" ng-model="risk.desc" title="Entrez la description du risque ou de l_opportunité">
+                <input type="text" ng-model="risk.desc" class="textboxclass" required title="Entrez la description du risque ou de l_opportunité">
                 </input>
             </div>
             <div class="col-lg-2">type:
-                <select  ng-model="risk.type" ng-options="opt for opt in ['Management','Technique']">
+                <select  ng-model="risk.type" ng-init="risk.type='Management'" ng-options="opt for opt in ['Management','Technique']">
                 </select>
             </div>
             <div class="col-lg-2">origine:
-                <select  ng-model="risk.orig" ng-init="risk.orig='interne'" ng-options="opt for opt in ['Interne','Externe']" title="l'origine est Interne ou Externe au projet.">
+                <select  ng-model="risk.orig" ng-init="risk.orig='Interne'" ng-options="opt for opt in ['Interne','Externe']" title="l'origine est Interne ou Externe au projet.">
                 </select>
             </div>
         </p>
 
         <p>
             <div class="col-lg-6">risk_opp:
-                <select  ng-model="risk.risk_opp" ng-init="risk.risk_opp='risque'" ng-options="opt for opt in ['Risque','Opportunité']">
+                <select  ng-model="risk.risk_opp" ng-init="risk.risk_opp='Risque'" ng-options="opt for opt in ['Risque','Opportunité']">
                 </select>
             </div>
             <div class="col-lg-1">gravity:

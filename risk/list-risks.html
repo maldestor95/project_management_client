@@ -3,18 +3,18 @@
                 desc<input ng-model="search.description"></input>
                 impact<input ng-model="search.impact"></input>
                 origine<input ng-model="search.origine"></input>
-                {{sort}}:{{reverse}}
+                {{predicate}}:{{reverse}}
             </form>
             <table class="table table-striped">
                 <tr>
                     <td>description</td>
                     <td>type </td>
-                    <td ng-click="sort='origine';reverse!=risk.reverse">origine</td>  
+                    <td ng-click="predicate='origine';reverse=!reverse">origine</td>  
                     <td>risk_opp</td>
                     <td>date_created</td>
-                    <td ng-click="sort='gravity';reverse!=reverse">gravity</td>
-                    <td ng-click="sort='probability';reverse!=reverse">probability</td>
-                    <td>Criticity</td>
+                    <td ng-click="predicate='history[0].gravity';reverse=!reverse">gravity</td>
+                    <td ng-click="predicate='history[0].probability';reverse=!reverse">probability</td>
+                    <td ng-click="predicate='history[0].probability * history[0].gravity';reverse=!reverse">criticity</td>
                     <td>history.date</td>
                     <td>impact</td>
                     <td>impact_desc</td>
@@ -22,7 +22,7 @@
                     <td>preventive_action</td>
                     <td>Leader</td>
                 </tr>
-                <tr ng-repeat="risk in riskCtrl.risks |orderBy:risk.sort:reverse">
+                <tr ng-repeat="risk in riskCtrl.risks |orderBy:predicate:reverse">
                     <td>{{risk.description}}</td>
                     <td>{{risk.type }}</td>
                     <td>{{risk.origine}}</td>  

@@ -15,3 +15,8 @@ body {
 .blue {
 	color: #0066FF;
 }
+
+.textboxclass {
+height: 10px;
+width: 80px;
+}
