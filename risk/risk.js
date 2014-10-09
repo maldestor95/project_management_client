@@ -1,5 +1,6 @@
 angular.module('risk',[])
 	.controller('riskController',['$scope','$http',function($scope,$http){
+        //initialisation du controlleur
         $http({method: 'GET', url: '/risks/risk'}).
                 success(function(data, status, headers, config) {
                         // this callback will be called asynchronously
@@ -21,33 +22,32 @@ angular.module('risk',[])
             alert(msg);
         };
 
-        this.new_risk=function($scope){
+        //Ajout d'un risque
+        this.POST=function(){
         	//construction de l'objet new_risk
             var new_risk={
-        		description:$scope.desc,
-				type:$scope.type,
-        		risk_opp : $scope.risk_opp,
+        		description:$scope.nrisk.desc,
+				type:$scope.nrisk.type,
+        		risk_opp : $scope.nrisk.risk_opp,
         		date_created: Date.now(),
-				origine:$scope.orig,
+				origine:$scope.nrisk.orig,
 				history:[{
-					gravity: $scope.gravity||1,
-					probability:$scope.probability||1,
+					gravity: $scope.nrisk.gravity||1,
+					probability:$scope.nrisk.probability||1,
         		    date:Date.now(),
 				}],
-				impact:$scope.impact,
-        		impact_desc: $scope.impact_desc,
+				impact:$scope.nrisk.impact,
+        		impact_desc: $scope.nrisk.impact_desc,
         		Status_open: true,
-        		preventive_action: $scope.preventive_action,
-        		Leader:$scope.leader
+        		preventive_action: $scope.nrisk.preventive_action,
+        		Leader:$scope.nrisk.leader
     		}       		
               
             $http({method: 'POST', url: '/risks/risk',data:new_risk, headers : "application/x-www-form-urlencoded"}).
             success(function(data, status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
-                $rootScope.$scope.risks.push(new_risk);
-                alert(data);
-                console.log(data);
+                $scope.riskCtrl.risks.push(data);
             }).
             error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -56,16 +56,20 @@ angular.module('risk',[])
                 console.log(status);
             });
         };
+
+        //Mise à jour d'un risque
         this.put=function($scope){
             console.log(JSON.stringify($scope));
         };
-        this.delete=function($scope){
-            console.log("DELETE "+JSON.stringify($scope));
-            $http({method: 'DELETE', url: '/risks/risk/'+$scope, headers : "application/x-www-form-urlencoded"}).
+        this.delete=function($idx){
+            console.log("DELETE "+JSON.stringify($idx));
+            $http({method: 'DELETE', url: '/risks/risk/'+$idx, headers : "application/x-www-form-urlencoded"}).
             success(function(status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
-                //$scope.risks = $filter('filter')($scope.risks, {_id: $scope._id})
+                console.log($idx);
+                var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($idx);
+                $scope.riskCtrl.risks.splice(item_to_delete,1);
 
             }).
             error(function(status, headers, config) {
@@ -91,57 +95,4 @@ angular.module('risk',[])
         }
     });
 
-var risksList=[
-{
-	description:'Retard fabrication cartes',
-	type:'management',
-    risk_opp : 'risk',
-    date_created: [],
-	origine:'Externe',
-	history:[{
-		gravity: 2,
-		probability:3,
-        date:[],
-	}],
-	impact:'cost',
-    impact_desc: '',
-    Status_open: true,
-    preventive_action: 'blabla',
-    Leader:'Ludo'
-},
-{
-	description:'Disponibilité compilateur',
-	type:'technique',
-    risk_opp : 'opportunity',
-    date_created: [],
-	origine:'Interne',
-	history:[{
-		gravity: 3,
-		probability:3,
-        date:[],
-	}],
-	impact:'delay',
-    impact_desc: '',
-    Status_open: true,
-    preventive_action: 'blabla',
-    Leader:'Paul'
-},
-{
-    description:'R3_Desc',
-    type:'technique',
-    risk_opp : 'opportunity',
-    date_created: [],
-    origine:'Interne',
-    history:[{
-        gravity: 1,
-        probability:1,
-        date:[],
-    }],
-    impact:'delay',
-    impact_desc: '',
-    Status_open: true,
-    preventive_action: 'blabla',
-    Leader:'Paul'
-}
-]
 
