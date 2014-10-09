@@ -1,4 +1,4 @@
-<html>            
+<html >            
             <form> 
                 desc<input ng-model="search.description"></input>
                 impact<input ng-model="search.impact"></input>
@@ -22,7 +22,7 @@
                     <td>preventive_action</td>
                     <td>Leader</td>
                 </tr>
-                <tr ng-repeat="risk in riskCtrl.risks |orderBy:predicate:reverse">
+                <tr ng-repeat="risk in riskCtrl.risks |orderBy:predicate:reverse">                    
                     <td>{{risk.description}}</td>
                     <td>{{risk.type }}</td>
                     <td>{{risk.origine}}</td>  
@@ -37,6 +37,9 @@
                     <td>{{risk.Status_open}}</td>
                     <td>{{risk.preventive_action}}</td>
                     <td>{{risk.Leader}}</td>
+                    <td><a href="#" ng-click="riskCtrl.put(risk._id)" title="">Edit</a>
+                    <a href="#" ng-click="riskCtrl.delete(risk._id)" title="">Delete</a>
+                    </td>
                 </tr>
             </table>
 </html>

@@ -1,50 +1,89 @@
 angular.module('risk',[])
 	.controller('riskController',['$scope','$http',function($scope,$http){
-		this.risks =risksList;
+        $http({method: 'GET', url: '/risks/risk'}).
+                success(function(data, status, headers, config) {
+                        // this callback will be called asynchronously
+                        // when the response is available
+                        $scope.riskCtrl.risks=data;
+                }).
+                error(function(data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        alert(status);
+                        return {};
+                });
         $scope.predicate='gravity';
         $scope.reverse=true;
+
+
         this.alert=function(msg){
             console.log(msg);
             alert(msg);
         };
-        this.new_risk=function(){
-        	var new_risk={
-        		description:$scope.risk.desc,
-				type:$scope.risk.type,
-        		risk_opp : $scope.risk.risk_opp,
+
+        this.new_risk=function($scope){
+        	//construction de l'objet new_risk
+            var new_risk={
+        		description:$scope.desc,
+				type:$scope.type,
+        		risk_opp : $scope.risk_opp,
         		date_created: Date.now(),
-				origine:$scope.risk.orig,
+				origine:$scope.orig,
 				history:[{
-					gravity: $scope.risk.gravity||1,
-					probability:$scope.risk.probability||1,
+					gravity: $scope.gravity||1,
+					probability:$scope.probability||1,
         		    date:Date.now(),
 				}],
-				impact:$scope.risk.impact,
-        		impact_desc: $scope.risk.impact_desc,
+				impact:$scope.impact,
+        		impact_desc: $scope.impact_desc,
         		Status_open: true,
-        		preventive_action: $scope.risk.preventive_action,
-        		Leader:$scope.risk.leader
-    		}
-       		this.risks.push(new_risk);
-              $http({method: 'GET', url: '/someUrl',params:new_risk}).
-              success(function(data, status, headers, config) {
+        		preventive_action: $scope.preventive_action,
+        		Leader:$scope.leader
+    		}       		
+              
+            $http({method: 'POST', url: '/risks/risk',data:new_risk, headers : "application/x-www-form-urlencoded"}).
+            success(function(data, status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
+                $rootScope.$scope.risks.push(new_risk);
                 alert(data);
-              }).
-              error(function(data, status, headers, config) {
+                console.log(data);
+            }).
+            error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 alert(status);
+                console.log(status);
             });
         };
+        this.put=function($scope){
+            console.log(JSON.stringify($scope));
+        };
+        this.delete=function($scope){
+            console.log("DELETE "+JSON.stringify($scope));
+            $http({method: 'DELETE', url: '/risks/risk/'+$scope, headers : "application/x-www-form-urlencoded"}).
+            success(function(status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                //$scope.risks = $filter('filter')($scope.risks, {_id: $scope._id})
+
+            }).
+            error(function(status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert(status);
+                console.log(status);
+            });
+        };        
     }])
+
     .directive('newRisk',function(){
     	return {
     		restrict: 'E',
     		templateUrl: 'risk/new-risk.html'
     	}
     })
+
     .directive('listRisks',function(){
         return {
             restrict: 'E',
