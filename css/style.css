@@ -6,8 +6,9 @@ body {
   text-align: center;
 }
 
-.red {
-	color: #FF0000;
+.select {
+	color: #2200FF;
+	border-radius: 5px;
 }
 .orange {
 	color: #FFCC00;
@@ -18,4 +19,24 @@ body {
 
 .textboxclass {
 width: 150px;
+}
+#new_risk {
+	border: solid;
+	border-width: 3px;
+	border-radius: 5px;
+	padding-top: 5px;
+	background-color: #BBBBFF;
+}
+#new_risk .description{
+	width: 100%;
+}
+#new_risk .form-group {
+	margin-bottom: 5px;/*color: #FF0000;*/
+}
+#new_risk select {
+	padding-top: 7px;
+}
+
+#Criticity {
+	padding-top: 5px;
 }

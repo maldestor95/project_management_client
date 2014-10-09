@@ -12,9 +12,9 @@
                     <td ng-click="predicate='origine';reverse=!reverse">origine</td>  
                     <td>risk_opp</td>
                     <td>date_created</td>
-                    <td ng-click="predicate='history[0].gravity';reverse=!reverse">gravity</td>
-                    <td ng-click="predicate='history[0].probability';reverse=!reverse">probability</td>
-                    <td ng-click="predicate='history[0].probability * history[0].gravity';reverse=!reverse">criticity</td>
+                    <td ng-click="predicate='gravity';reverse=!reverse">gravity</td>
+                    <td ng-click="predicate='probability';reverse=!reverse">probability</td>
+                    <td ng-click="predicate='probability * gravity';reverse=!reverse">criticity</td>
                     <td>history.date</td>
                     <td>impact</td>
                     <td>impact_desc</td>
@@ -28,9 +28,9 @@
                     <td>{{risk.origine}}</td>  
                     <td>{{risk.risk_opp}}</td>
                     <td>{{risk.date_created | date : 'dd/MMM/yy'}}</td>
-                    <td>{{risk.history[0].gravity}}</td>
-                    <td>{{risk.history[0].probability}}</td>
-                    <td>{{risk.history[0].probability * risk.history[0].gravity}}</td>
+                    <td>{{risk.gravity}}</td>
+                    <td>{{risk.probability}}</td>
+                    <td>{{risk.probability * risk.gravity}}</td>
                     <td>{{risk.history.date}}</td>
                     <td>{{risk.impact}}</td>
                     <td>{{risk.impact_desc}}</td>
