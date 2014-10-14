@@ -63,8 +63,27 @@ angular.module('risk',[])
 
         //Mise à jour d'un risque
         this.PUT=function($scope){
-            console.log("EDIT :"+JSON.stringify($scope));
-            //récupération de l'
+            console.log("PUT :"+JSON.stringify($scope));
+            var updated_risk=$scope;
+            $http({method: 'PUT', url: '/risks/risk/'+$scope._id,data:updated_risk, headers : "application/x-www-form-urlencoded"}).
+            success(function(data,status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                console.log('PUT SUCCESS '+JSON.stringify(status));
+                /*var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($idx);
+                $scope.riskCtrl.risks.splice(item_to_delete,1);*/
+       /*         var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($scope._id);
+                $scope.riskCtrl.risks.splice(item_to_delete,1);*/
+
+                /*$rootscope.$scope.riskCtrl.risks.push(data);*/
+
+            }).
+            error(function(status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                alert(status);
+                console.log(status);
+            });
         };
         this.delete=function($idx){
             console.log("DELETE "+JSON.stringify($idx));

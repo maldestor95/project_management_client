@@ -61,6 +61,7 @@
                             <a href="#" ng-show="editable" ng-click="riskCtrl.delete(risk._id)" title="Delete" class="btn btn-xs btn-defaut">
                                     <span class="glyphicon glyphicon-trash"></span>  
                             </a>
+
                         </td>
                         <td>
                             <input ng-disabled="editable" type="text" name=""  ng-model="risk.description" value="{{risk.description}}" placeholder="">
@@ -95,7 +96,7 @@
                                 {{risk.risk_opp}}
                             </div>                            
                         </td>
-                        <td>{{risk.date_created | date : 'dd/MMM/yy'}}</td>
+                        <td>{{risk.date_created |date:'dd MMM yy'}}</td>
                         <td>
                             <select  ng-show="!editable" class="select"  
                             ng-model="risk.gravity" 
@@ -119,7 +120,7 @@
                             </div>
                         </td>
                         <td>{{risk.probability * risk.gravity}}</td>
-                        <td>{{risk.history.date}}</td>
+                        <td>{{risk.date_modified|date:'dd MMM yy'}}</td>
                         <td>{{risk.impact}}</td>                       
                         <td> 
                         <input ng-disabled="editable" type="text" name="" ng-model="risk.impact_desc" value="{{risk.impact_desc}}">
@@ -136,7 +137,9 @@
                         </td>
                         <td><input ng-disabled="editable" type="text" name="" ng-model="risk.preventive_action" value="{{risk.preventive_action}}"></td>
                         <td><input ng-disabled="editable" type="text" name="" ng-model="risk.Leader" value="{{risk.Leader}}"></td>                    
-                    </div>                   
+                    </div>                                                                                
+                    <!-- <table><tr ng-repeat="item in risk.history'"><td>{{item.date_modified|date:'dd MMM yy hh:mm'}}</td></tr></table> -->
+                                                <!-- <table><tr ng-repeat="item in risk.history"><td>{{item.description}}</td></tr></table> -->
                 </tr>
             </table>
 </html>
