@@ -15,7 +15,7 @@ angular.module('risk',[])
                 });
         $scope.predicate='gravity';
         $scope.reverse=true;
-
+        $scope.show_new_risk=false;
 
         this.alert=function(msg){
             console.log(msg);
@@ -31,6 +31,8 @@ angular.module('risk',[])
         		risk_opp : $scope.nrisk.risk_opp,
         		date_created: Date.now(),
 				origine:$scope.nrisk.orig,
+                gravity:$scope.nrisk.gravity,
+                probability:$scope.nrisk.probability,
 				history:[{
 					gravity: $scope.nrisk.gravity||1,
 					probability:$scope.nrisk.probability||1,
@@ -48,6 +50,8 @@ angular.module('risk',[])
                 // this callback will be called asynchronously
                 // when the response is available
                 $scope.riskCtrl.risks.push(data);
+                //on cache le formulaire
+                $scope.show_new_risk=false;
             }).
             error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -58,8 +62,9 @@ angular.module('risk',[])
         };
 
         //Mise à jour d'un risque
-        this.put=function($scope){
-            console.log(JSON.stringify($scope));
+        this.PUT=function($scope){
+            console.log("EDIT :"+JSON.stringify($scope));
+            //récupération de l'
         };
         this.delete=function($idx){
             console.log("DELETE "+JSON.stringify($idx));
@@ -93,6 +98,24 @@ angular.module('risk',[])
             restrict: 'E',
             templateUrl: 'risk/list-risks.html'
         }
-    });
+    })
+    .directive('editRisk',function(){
+        return {
+            restrict: 'E',
+            templateUrl: 'risk/new-risk.html'
+        }  
+    })
+    .directive('ldSortarrow',function(){
+            return {
+                restrict: 'E',
+                scope:{key:'@key'},
+                controller: function($scope)
+                    {var key="$scope.key";},
+                template: '*{{key}}*<span class="glyphicon glyphicon-chevron-down"></span>'
+            }  
+        });
+
+    
+
 
 

@@ -40,3 +40,24 @@ width: 150px;
 #Criticity {
 	padding-top: 5px;
 }
+list-risks input{
+	border-radius: 5px;
+}
+list-risks input:disabled, select:disabled{
+	background-color: #FFFFFF;
+	border:none;
+}
+
+list-risks .title{
+	background-color: #000000;
+	color: #DDDDDD;
+}
+
+.table-striped>tr:nth-child(odd){
+   color:red;
+}
+
+
+.container {
+	width : auto;
+}
