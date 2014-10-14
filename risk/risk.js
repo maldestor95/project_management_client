@@ -16,6 +16,7 @@ angular.module('risk',[])
         $scope.predicate='gravity';
         $scope.reverse=true;
         $scope.show_new_risk=false;
+        $scope.history_detail=false;
 
         this.alert=function(msg){
             console.log(msg);
@@ -76,6 +77,7 @@ angular.module('risk',[])
                 $scope.riskCtrl.risks.splice(item_to_delete,1);*/
 
                 /*$rootscope.$scope.riskCtrl.risks.push(data);*/
+                
 
             }).
             error(function(status, headers, config) {
