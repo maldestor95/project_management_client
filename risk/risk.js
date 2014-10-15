@@ -17,35 +17,31 @@ angular.module('risk',[])
                 });
         $scope.predicate='gravity';
         $scope.reverse=true;
-        $scope.show_new_risk=false;
-        $scope.history_detail=false;
-
-        this.alert=function(msg){
-            console.log(msg);
-            alert(msg);
-        };
+        $scope.show_new_risk=false; //gestion de l'affichage du formulaire new-risk.html
+        $scope.history_detail=false; //étend ou réduit l'affichage de l'historique
 
         //Ajout d'un risque
-        this.POST=function(){
+        this.POST=function($nrisk){
         	//construction de l'objet new_risk
+            
             var new_risk={
-        		description:$scope.nrisk.desc,
-				type:$scope.nrisk.type,
-        		risk_opp : $scope.nrisk.risk_opp,
+        		description:$nrisk.desc,
+				type:$nrisk.type,
+        		risk_opp : $nrisk.risk_opp,
         		date_created: Date.now(),
-				origine:$scope.nrisk.orig,
-                gravity:$scope.nrisk.gravity,
-                probability:$scope.nrisk.probability,
+				origine:$nrisk.orig,
+                gravity:$nrisk.gravity,
+                probability:$nrisk.probability,
 				history:[{
-					gravity: $scope.nrisk.gravity||1,
-					probability:$scope.nrisk.probability||1,
+					gravity: $nrisk.gravity||1,
+					probability:$nrisk.probability||1,
         		    date:Date.now(),
 				}],
-				impact:$scope.nrisk.impact,
-        		impact_desc: $scope.nrisk.impact_desc,
+				impact:$nrisk.impact,
+        		impact_desc: $nrisk.impact_desc,
         		Status_open: true,
-        		preventive_action: $scope.nrisk.preventive_action,
-        		Leader:$scope.nrisk.leader
+        		preventive_action: $nrisk.preventive_action,
+        		Leader:$nrisk.leader
     		}       		
               
             $http({method: 'POST', url: '/risks/risk',data:new_risk, headers : "application/x-www-form-urlencoded"}).
@@ -59,13 +55,16 @@ angular.module('risk',[])
             error(function(data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                alert(status);
-                console.log(status);
+                alert('Erreur pendant la création du risque dans la BDD. le serveur a renvoyé: ' + status);
             });
-        };
-        this.refresh_risk=function(){
 
-        }
+            if ($nrisk.keep_open) {
+                $scope.show_new_risk=true;
+            }
+            console.log($scope.show_new_risk);
+
+        };
+
         //Mise à jour d'un risque
         this.PUT=function($risk,$riskslist){
             console.log("PUT :"+JSON.stringify($risk));
@@ -79,34 +78,42 @@ angular.module('risk',[])
                 var item_to_delete=$riskslist.map(function(e) { return e._id; }).indexOf($scope._id);
                 $riskslist.splice(item_to_delete,1);
                 $riskslist.push(data);
-
-
             }).
             error(function(status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                alert(status);
-                console.log(status);
+                alert('Erreur pendant la mise à jour du risque dans la BDD. le serveur a renvoyé: ' + status);
             });
         };
-        this.delete=function($idx){
-            console.log("DELETE "+JSON.stringify($idx));
-            $http({method: 'DELETE', url: '/risks/risk/'+$idx, headers : "application/x-www-form-urlencoded"}).
-            success(function(status, headers, config) {
-                // this callback will be called asynchronously
-                // when the response is available
-                console.log($idx);
-                var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($idx);
-                $scope.riskCtrl.risks.splice(item_to_delete,1);
 
-            }).
-            error(function(status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                alert(status);
-                console.log(status);
-            });
-        };        
+        //suppression d'un risque
+        this.delete_confirmed=function($idx){
+            //fonction appelée si la suppression du risque est confirmée par l'utilisateur
+            $http({method: 'DELETE', url: '/risks/risk/'+$idx, headers : "application/x-www-form-urlencoded"}).
+                success(function(status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    console.log($idx);
+                    var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($idx);
+                    $scope.riskCtrl.risks.splice(item_to_delete,1);
+
+                }).
+                error(function(status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert('Erreur pendant la suppression du risque dans la BDD. le serveur a renvoyé: ' + status);
+                });
+        }; 
+ 
+        this.delete=function($idx){
+            //console.log("DELETE "+JSON.stringify($idx));
+
+            // demande de confirmation
+            this.delete_confirmed($idx);
+        }; 
+
+
+
     }])
 
     .directive('newRisk',function(){
