@@ -57,14 +57,19 @@ width: 150px;
 	border-radius: 20px;
 }
 
-list-risks
- input{
+list-risks {
+	background-color: #8888FF;
+}
+
+list-risks input{
 	border-radius: 5px;
+	color : blue;
 }
 
 list-risks input:disabled, select:disabled{
 	background-color: #8888FF;
 	border:none;
+	color : white;
 }
 
 list-risks .title{
@@ -79,7 +84,10 @@ list-risks .risk_entry{
 /*.table-striped>tr:nth-child(odd){
    color:red;
 }*/
-
+.wrap {
+    width: 10em; 
+    word-wrap: break-word ;
+}
 
 .container {
 	width : auto;
@@ -100,3 +108,8 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+input.ng-pristine.ng-invalid {
+    border-color: #FA787E;
+    border-width: 2px;
+  }

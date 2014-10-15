@@ -3,7 +3,7 @@
         <div class="form-group row" id="inputDescription">
             <label for="inputDescription" class="col-sm-1 control-label">description</label>
             <div class="col-sm-11">
-                <input class="form-control description"  placeholder="Description du risque ou de l'opportunité" type="text" ng-model="nrisk.desc" required title="Entrez la description du risque ou de l'opportunité">
+                <input class="form-control description"  placeholder="Description du risque ou de l'opportunité" type="text" ng-model="nrisk.desc" required ng-class="" title="Entrez la description du risque ou de l'opportunité">
             </div>
         </div>
         <div class="row">
@@ -79,7 +79,8 @@
         </div>
 
         <div class="form-group">
-            <div class="col-lg-2"><input type="submit" id="submit" value="Submit" /></div>
+            <div class="col-lg-2"><input type="submit" id="submit" value="Submit" class="button btn-primary" ng-disabled="new_risk.$invalid"/></div>
+            <div class="col-lg-2"><input type="submit" id="cancel" value="Cancel" class="button btn-primary" ng-click="show_new_risk=false"/></div>
         </p>
 
     </form>
