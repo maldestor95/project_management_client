@@ -40,7 +40,7 @@
                     <td ng-click="predicate='impact_desc';reverse=!reverse" title="Impact">Description de l'impact
 
                         <span ng-class="predicate=='impact_desc' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
-                        <input ng-model="search.impact"></input>
+                        <input ng-model="search.impact_desc"></input>
                     </td>
                     <td ng-click="predicate='Status_open';reverse=!reverse">Status
                         <span ng-class="predicate=='Status_open' ? reverse ? 'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up':''"></span>
@@ -58,7 +58,7 @@
                         <td><a href="#" ng-show="editable" ng-click="editable=!editable" title="Edit" class="btn btn-xs btn-defaut">
                                     <span class="glyphicon glyphicon-pencil white"></span>  
                             </a>
-                            <a href="#" ng-show="!editable" ng-click="riskCtrl.PUT(risk);editable=!editable" title="Update" class="btn btn-xs btn-defaut">
+                            <a href="#" ng-show="!editable" ng-click="riskCtrl.PUT(risk,riskCtrl.risks);editable=!editable" title="Update" class="btn btn-xs btn-defaut">
                                     <span class="glyphicon glyphicon-refresh white"></span>  
                             </a>
                             <a href="#" ng-show="editable" ng-click="riskCtrl.delete(risk._id)" title="Delete" class="btn btn-xs btn-defaut">
@@ -67,7 +67,9 @@
 
                         </td>
                         <td>
-                            <input ng-disabled="editable" type="text" name=""  ng-model="risk.description" value="{{risk.description}}" placeholder="">
+                            <p >
+                                <input ng-disabled="editable" type="textarea" name=""  ng-model="risk.description" value="{{risk.description}}" placeholder="" class="wrap">
+                            </p>
                         </td>
                         <td>
                             <select  ng-show="!editable" class="select"  
@@ -123,12 +125,12 @@
                             </div>
                         </td>
                         <td >
-                            <div ng-class="{red:risk.probability * risk.gravity>5}">
-                                {{risk.probability * risk.gravity}}
+                            <div ng-init="risk.criticity=risk.probability * risk.gravity" ng-class="{red:risk.criticity>5}">
+                                {{risk.criticity}}
                             </div>
                         </td>
                         <td class="center">{{risk.date_modified|date:'dd MMM yy'}}
-                            <a ng-click="history_detail=!history_detail">
+                            <a ng-click="history_detail=!history_detail" ng-show="risk.history.length > 0">
                                 <span ng-class="!history_detail ? 'glyphicon glyphicon-plus white ':'glyphicon glyphicon-minus white '">
                             </a>
                         </td>

@@ -1,11 +1,13 @@
 angular.module('risk',[])
 	.controller('riskController',['$scope','$http',function($scope,$http){
         //initialisation du controlleur
+        this.risksss={}
         $http({method: 'GET', url: '/risks/risk'}).
                 success(function(data, status, headers, config) {
                         // this callback will be called asynchronously
                         // when the response is available
                         $scope.riskCtrl.risks=data;
+                        this.risksss=data;
                 }).
                 error(function(data, status, headers, config) {
                         // called asynchronously if an error occurs
@@ -61,23 +63,23 @@ angular.module('risk',[])
                 console.log(status);
             });
         };
+        this.refresh_risk=function(){
 
+        }
         //Mise à jour d'un risque
-        this.PUT=function($scope){
-            console.log("PUT :"+JSON.stringify($scope));
-            var updated_risk=$scope;
-            $http({method: 'PUT', url: '/risks/risk/'+$scope._id,data:updated_risk, headers : "application/x-www-form-urlencoded"}).
+        this.PUT=function($risk,$riskslist){
+            console.log("PUT :"+JSON.stringify($risk));
+            var updated_risk=$risk;
+            $http({method: 'PUT', url: '/risks/risk/'+$risk._id,data:updated_risk, headers : "application/x-www-form-urlencoded"}).
             success(function(data,status, headers, config) {
                 // this callback will be called asynchronously
                 // when the response is available
-                console.log('PUT SUCCESS '+JSON.stringify(status));
-                /*var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($idx);
-                $scope.riskCtrl.risks.splice(item_to_delete,1);*/
-       /*         var item_to_delete=$scope.riskCtrl.risks.map(function(e) { return e._id; }).indexOf($scope._id);
-                $scope.riskCtrl.risks.splice(item_to_delete,1);*/
+                console.log('PUT SUCCESS '+JSON.stringify(data));
+                console.log('liste initiale' + JSON.stringify($riskslist))
+                var item_to_delete=$riskslist.map(function(e) { return e._id; }).indexOf($scope._id);
+                $riskslist.splice(item_to_delete,1);
+                $riskslist.push(data);
 
-                /*$rootscope.$scope.riskCtrl.risks.push(data);*/
-                
 
             }).
             error(function(status, headers, config) {
