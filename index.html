@@ -22,15 +22,16 @@
           <ul class="nav navbar-nav">
             <li ng-class="{active:menu=='home'}"><a href="#" ng-click="menu='home'">Home</a></li>
             <li ng-class="{active:menu=='risques'}" class="dropdown">
-<!--                 <a class="dropdown-togle" data-toggle="data" href="#risques" ng-click="menu='risques'">Risques<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li> <a href="#">Add Risk</a></li>
-                </ul> -->
                 <a href="#risques" class="dropdown-toggle" data-toggle="dropdown" ng-click="menu='risques'">Risques <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#" ng-click="show_new_risk=true">Add Risk</a></li>
                 </ul>
-
+            </li>
+            <li ng-class="{active:menu=='settings'}" class="dropdown">
+                <a href="#settings" class="dropdown-toggle" data-toggle="dropdown" ng-click="menu='settings'">Setting <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" ng-click="show_new_risk=true">Add Project</a></li>
+                </ul>
             </li>
             <li ng-class="{active:menu=='about'}"><a href="#about" ng-click="menu='about'">About</a></li>
             <li ng-class="{active:menu=='contact'}"><a href="#contact" ng-click="menu='contact'">Contact</a></li>
