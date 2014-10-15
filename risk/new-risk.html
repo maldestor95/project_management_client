@@ -1,5 +1,5 @@
-<html>
-    <form class="form-horizontal" role="form" id="new_risk" name="new_risk" ng-submit="riskCtrl.POST()">
+<html >
+    <form ng-show="show_new_risk" class="form-horizontal" role="form" id="new_risk" name="new_risk" ng-submit="riskCtrl.POST(nrisk)">
         <div class="form-group row" id="inputDescription">
             <label for="inputDescription" class="col-sm-1 control-label">description</label>
             <div class="col-sm-11">
@@ -79,7 +79,8 @@
         </div>
 
         <div class="form-group">
-            <div class="col-lg-2"><input type="submit" id="submit" value="Submit" class="button btn-primary" ng-disabled="new_risk.$invalid"/></div>
+            <div class="col-lg-2"><input type="submit" id="submit" value="Submit" class="button btn-primary" ng-disabled="new_risk.$invalid" /></div>
+            <input type="checkbox" ng-model="nrisk.keep_open"> Keep Open
             <div class="col-lg-2"><input type="submit" id="cancel" value="Cancel" class="button btn-primary" ng-click="show_new_risk=false"/></div>
         </p>
 
